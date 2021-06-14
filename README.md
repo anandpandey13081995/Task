@@ -27,3 +27,14 @@ TO LOGIN (I have created clients earlier)- USE THIS TO LOGIN * YOU CAN ALSO REGI
     
     "password": "12345"
   }
+
+
+FUNCTIONALITIES IMPLEMENTED
+
+1. LOGIN
+2. ADD TASK
+3. EDIT TASK
+4. DELETE TASK
+5. LOGOUT AND RETURN TO LOGIN PAGE
+
+*few bugs are still there, if told, i can fix them*
