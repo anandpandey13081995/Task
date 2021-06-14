@@ -1,14 +1,30 @@
-import "./App.css";
-import Login from "./components/Login";
-import { Route, Switch } from "react-router-dom";
-import DashBoard from "./components/DashBoard";
-import Header from "./components/Header";
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-function App() {
+import Dashboard from "./pages/DashBoard";
+import Login from './pages/Login';
+
+function App() { 
   return (
-    <div className="container">
-      <Login />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Login}/>
+          <Route path="/dashboard" exact component={Dashboard}/>
+          
+          <Route path="/" component={NotFound}/>
+
+        </Switch>
+      </div>
+    </Router>
   );
 }
+
+function NotFound() {
+    return (
+        <div>
+            404 Not Found!
+        </div>
+    )
+}
+
 export default App;

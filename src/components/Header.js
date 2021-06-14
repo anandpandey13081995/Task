@@ -4,9 +4,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
-// import Login from "./Login";
-// import DashBoard from "./DashBoard";
+import { useHistory } from "react-router-dom";
+import authController from "../controllers/auth";
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -21,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const logout=async  () =>{
+    await authController.logout();
+    history.push('/');
+  }
 
   return (
     <div className={classes.root}>
@@ -29,11 +36,8 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Welcome to DashBoard
           </Typography>
-          <Button color="inherit">
-            {/* <Link to={Login}>Login</Link> */}Login
-          </Button>
-          <Button color="inherit">
-            {/* <Link to={DashBoard}>DashBoard</Link> */}DashBoard
+          <Button color="inherit" onClick={logout}>
+            Logout
           </Button>
         </Toolbar>
       </AppBar>

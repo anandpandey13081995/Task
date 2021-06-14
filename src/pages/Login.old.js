@@ -1,4 +1,6 @@
-import React from "react";
+import React,{useState} from "react";
+import { useHistory } from "react-router-dom";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,7 +9,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Header from "./Header";
+import Alert from '@material-ui/lab/Alert';
+
+import authController from "../controllers/auth";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -28,14 +33,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function Login() {
+  const history = useHistory();
   const classes = useStyles();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
+
+  const login = ()=>{
+    const userData = {username, password};
+
+    authController.login((response)=>{
+      if(response.status){
+        history.push('/dashboard');
+      }else{
+        setLoginError(true);
+      }
+    })
+
+  }
 
   return (
     <div>
-      <Header />
+      
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        
 
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -54,6 +78,7 @@ export default function SignIn() {
               name="userid"
               autoComplete="userid"
               autoFocus
+              onChange={(e)=>{setUsername(e.target.value)}}
             />
             <TextField
               variant="outlined"
@@ -64,6 +89,7 @@ export default function SignIn() {
               type="text"
               id="name"
               autoComplete="current-name"
+              onChange={(e)=>{setPassword(e.target.value)}}
             />
 
             <Button
@@ -72,9 +98,11 @@ export default function SignIn() {
               variant="contained"
               color="primary"
               className={classes.submit}
-            >
+              onClick={login}
+              >
               Log In
             </Button>
+              {loginError && <Alert severity="error">Wrong username or password!</Alert>}
           </form>
         </div>
       </Container>
