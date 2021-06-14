@@ -8,7 +8,7 @@ Steps to Run server
 
 Steps to run client
 
-cd ../
-cd client
-npm i
-npm start
+1. cd ../
+2. cd client
+3. npm i
+4. npm start
